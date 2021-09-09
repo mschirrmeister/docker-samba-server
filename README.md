@@ -14,7 +14,7 @@ See [example directory](https://github.com/mschirrmeister/docker-samba-server/tr
 
 Docker manual example:
 
-    docker run -it --rm \
+    docker run -it -d \
       --name samba-server \
       -p 139:139 \
       -p 445:445 \
