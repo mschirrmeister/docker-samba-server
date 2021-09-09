@@ -1,21 +1,35 @@
 # Samba Server Container
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/joebiellik/samba-server.svg)](https://hub.docker.com/r/joebiellik/samba-server/)
-[![Docker Stars](https://img.shields.io/docker/stars/joebiellik/samba-server.svg)](https://hub.docker.com/r/joebiellik/samba-server/)
-[![Docker Build](https://img.shields.io/docker/cloud/automated/joebiellik/samba-server.svg)](https://hub.docker.com/r/joebiellik/samba-server/)
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/joebiellik/samba-server.svg)](https://hub.docker.com/r/joebiellik/samba-server/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mschirrmeister/samba-server.svg)](https://hub.docker.com/r/mschirrmeister/samba-server/)
+[![Docker Stars](https://img.shields.io/docker/stars/mschirrmeister/samba-server.svg)](https://hub.docker.com/r/mschirrmeister/samba-server/)
+[![Docker Build](https://img.shields.io/docker/cloud/automated/mschirrmeister/samba-server.svg)](https://hub.docker.com/r/mschirrmeister/samba-server/)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/mschirrmeister/samba-server.svg)](https://hub.docker.com/r/mschirrmeister/samba-server/)
 
 [Samba 4](https://www.samba.org/) server running under [s6 overlay](https://github.com/just-containers/s6-overlay) on [Alpine Linux](https://hub.docker.com/_/alpine/). Runs both `smbd` and `nmbd` services.
 
 ## Configuration
 
-See [example directory](https://github.com/jcbiellikltd/docker-samba-server/tree/master/example) for sample config file.
+See [example directory](https://github.com/mschirrmeister/docker-samba-server/tree/master/example) for sample config file.
 
 ## Quickstart
 
+Docker manual example:
+
+    docker run -it --rm \
+      --name samba-server \
+      -p 139:139 \
+      -p 445:445 \
+      -e USERNAME=username \
+      -e PASSWORD=password \
+      -v /opt/docker/etc/samba/smb.conf:/etc/samba/smb.conf \
+      --mount type=bind,source=/mnt/movies,target=/mnt/movies,bind-propagation=rshared \
+      mschirrmeister/samba-server
+
+Docker compose example:
+
 ```yml
 samba:
-  image: joebiellik/samba-server
+  image: mschirrmeister/samba-server
 
   volumes:
     # You must provide a Samba config file
@@ -32,6 +46,6 @@ samba:
     - "445:445/tcp"
 
   environment:
-    - USERNAME=joe
-    - PASSWORD=samba
+    - USERNAME=username
+    - PASSWORD=password
 ```
