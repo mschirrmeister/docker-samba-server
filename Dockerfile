@@ -1,4 +1,4 @@
-FROM alpine:3.14 AS build
+FROM alpine:3.18.3 AS build
 
 ARG TARGETARCH
 
@@ -13,7 +13,7 @@ RUN apk add --no-cache openssl curl \
   esac \
   && curl -o /tmp/s6-overlay.tar.gz -fsSL --compressed https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-$ARCH.tar.gz
 
-FROM alpine:3.14
+FROM alpine:3.18.3
 
 ENV USERNAME samba
 ENV PASSWORD password
